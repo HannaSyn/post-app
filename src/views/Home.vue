@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-list three-line>
+    <Post
+      v-for="post in posts" 
+      :key="post.id"
+      :post="post"
+    />
+  </v-list>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import Post from '@/components/Post';
+import { mapGetters, mapActions } from 'vuex';
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
-    HelloWorld
-  }
-};
+    Post
+  },
+  computed: mapGetters(['posts']),
+  async mounted () {
+    this.fetchPosts();
+  },
+  methods: mapActions(['fetchPosts'])
+}
 </script>
+
+<style>
+
+</style>

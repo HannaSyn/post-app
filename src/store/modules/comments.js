@@ -1,8 +1,8 @@
-import api from '@/api/comments';
+import api from "@/api/comments";
 
 const state = {
   comments: [],
-  commentsLoaded: false,
+  commentsLoaded: false
 };
 
 const getters = {
@@ -12,7 +12,7 @@ const getters = {
 
   commentsLoaded(state) {
     return state.commentsLoaded;
-  },
+  }
 };
 
 const mutations = {
@@ -25,11 +25,11 @@ const mutations = {
 };
 
 const actions = {
-  fetchComments (context, postId) {
-    api.index(postId).then(function (response) {
-      context.commit('setComments', response.data);
-      context.commit('setCommentsLoaded', true);
-    })
+  fetchComments(context, postId) {
+    api.index(postId).then(function(response) {
+      context.commit("setComments", response.data);
+      context.commit("setCommentsLoaded", true);
+    });
   }
 };
 

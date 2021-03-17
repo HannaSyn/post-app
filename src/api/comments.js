@@ -1,8 +1,8 @@
-import axios from 'axios'
-import config from '../../api.config'
+import axios from "axios";
+import config from "../../api.config";
 
 export default {
-  index ( postId ) {
+  index(postId) {
     return axios.get(`${config.domen}/posts/${postId}/comments`);
   }
-}
+};

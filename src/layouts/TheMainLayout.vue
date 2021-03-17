@@ -1,10 +1,7 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawerBar"
-      app
-    >
-      <Drawer/>
+    <v-navigation-drawer v-model="drawerBar" app>
+      <Drawer />
     </v-navigation-drawer>
 
     <v-app-bar app>
@@ -19,33 +16,33 @@
 </template>
 
 <script>
-  import Drawer from '@/components/Drawer';
-  export default {
-    data: () => ({ drawerBar: true }),
-    components: {
-      Drawer
-    }
+import Drawer from "@/components/Drawer";
+export default {
+  data: () => ({ drawerBar: true }),
+  components: {
+    Drawer
   }
+};
 </script>
 
 <style lang="scss">
-.toolbar-title{
-    font-size: 24px;
-    font-weight: 900;
-    color: #1eb980;
-    position: relative;
-    &::before{
-      content: "";
-      position: absolute;
-      left: 4px;
-      top: 3px;
-      width: 5px;
-      height: 22px;
-      background-color: #ffcf44;
-    }
+.toolbar-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #1eb980;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 3px;
+    width: 5px;
+    height: 22px;
+    background-color: #ffcf44;
+  }
 }
 
-.content{
+.content {
   &::first-letter {
     text-transform: uppercase;
   }
@@ -54,5 +51,4 @@
 a {
   text-decoration: none;
 }
-
 </style>

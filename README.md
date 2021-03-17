@@ -1,4 +1,4 @@
-# intempt-posts
+# Posts-App
 
 ## Project setup
 ```

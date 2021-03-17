@@ -9,14 +9,21 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home
+  },
+  {
+    path: "/create",
+    name: "CreatePost",
+    component: function() {
+      return import("../views/CreatePost.vue");
+    }
+  },
+  {
+    path: "/posts/:id",
+    name: "ThePost",
+    component: function() {
+      return import("../views/ThePost.vue");
+    }
   }
-  // {
-  // path: "/about",
-  // name: "About",
-  // component: function() {
-  //   return import(/* webpackChunkName: "about" */ "../views/About.vue");
-  // }
-  // }
 ];
 
 const router = new VueRouter({

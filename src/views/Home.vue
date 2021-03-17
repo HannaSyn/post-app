@@ -1,5 +1,5 @@
 <template>
-   <v-list three-line>
+  <v-list three-line>
     <Post
       v-for="post in posts" 
       :key="post.id"
@@ -17,8 +17,10 @@ export default {
     Post
   },
   computed: mapGetters(['posts']),
-  async mounted () {
-    this.fetchPosts();
+  mounted () {
+    if (!this.posts.length){
+      this.fetchPosts();
+    }
   },
   methods: mapActions(['fetchPosts'])
 }

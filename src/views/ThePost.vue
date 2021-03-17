@@ -3,16 +3,49 @@
   <div class="post">
     <v-container fluid class="container">
       <div class="post__item">
-        <p class="post__title content">{{ post.title }}</p>
-        <p class="post__body content">{{ post.body }}</p>
+        <div 
+        v-if="!editable">
+          <p class="post__title content">{{ item.title }}</p>
+          <p class="post__body content">{{ item.body }}</p>
+        </div>
+
+        <div
+        v-else>
+          <v-text-field
+          :error-messages="titleErrors"
+          v-model="post.title"
+          label="Title"
+          required
+        ></v-text-field>
+
+          <v-textarea
+            v-model="post.body"
+            :error-messages="bodyErrors"
+            label="Post"
+            required
+            clearable
+            clear-icon="mdi-close-circle"
+        ></v-textarea>
+
+        </div>
+        
+
         <v-btn
+          v-if="!editable"
           class="mr-4"
-          @click.prevent
+          @click="editable = true"
         >
           edit
         </v-btn>
+        <v-btn
+          v-if="editable"
+          class="mr-4"
+          @click="editItem"
+        >
+          submit
+        </v-btn>
         <v-btn 
-          @click="deletePost"
+          @click="deleteItem"
         >
           delete
         </v-btn>
@@ -32,28 +65,46 @@
 </template>
 
 <script>
+import postValidation from '@/mixins/postValidation';
 import Comment from '@/components/Comment'
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
+  mixins: [postValidation],
+  data () {
+    return {
+      post: {
+        title: '',
+        body: '',
+      },
+      item: null,
+      editable: false
+    };
+  },
   computed: {
     ...mapGetters(['posts', 'comments', 'commentsLoaded']),
   },
   methods: {
-    ...mapActions(['fetchComments']),
-    deletePost () {
-      
+    ...mapActions(['fetchComments', 'editPost', 'deletePost']),
+    deleteItem () {
+      this.deletePost(this.item.id);
+      setTimeout(() => {
+        this.$router.push('/');
+      }, 500);
+    },
+    editItem() {
+      if (this.valid()) {
+        this.post.id = this.item.id;
+        this.editPost(this.post);
+        this.editable = false;
+      }
     }
-  },
-  data () {
-    return {
-      post: null,
-    };
   },
   created () {
     const postId = this.$route.params.id;
-    this.post = this.posts.find(element => element.id == postId);
+    this.item = this.posts.find(element => element.id == postId);
     this.fetchComments(postId);
+    this.post = Object.assign({}, this.item);
   },
   components: {
     Comment
